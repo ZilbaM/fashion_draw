@@ -3,8 +3,8 @@ class CanvasDrawer {
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext('2d')
         this.convertButton = document.getElementById(convertButtonId)
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = "black"
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
         console.log('fill')
         this.drawing = false
         this.mousePos = { x: 0, y: 0 }
@@ -28,7 +28,7 @@ class CanvasDrawer {
         // If the mouse is down
         if (this.drawing) {
             this.ctx.beginPath() // Start the path 
-            this.ctx.strokeStyle = "white";
+            this.ctx.strokeStyle = "white"
             this.ctx.lineWidth = 10 // Set the line width to 10 so the stroke aren't erased when rescaling to 28x28px
             this.ctx.moveTo(this.lastPos.x, this.lastPos.y) // Move the start of the line to the position the mouse ended on last render
             this.ctx.lineTo(this.mousePos.x, this.mousePos.y) // Draw a line to the current position of the mouse
@@ -70,7 +70,7 @@ class CanvasDrawer {
         document.getElementById('clear').addEventListener('click', () => {
             this.ctx.reset()
             this.ctx.beginPath()
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
             this.ctx.closePath()
 
         })
@@ -123,11 +123,10 @@ class ONNXModelHandler {
     }
 
     softmax(arr) {
-        const maxLogit = Math.max(...arr);
-        const sum = arr.reduce((acc, logit) => acc + Math.exp(logit - maxLogit), 0);
-        return arr.map(logit => Math.exp(logit - maxLogit) / sum);
+        const maxLogit = Math.max(...arr)
+        const sum = arr.reduce((acc, logit) => acc + Math.exp(logit - maxLogit), 0)
+        return arr.map(logit => Math.exp(logit - maxLogit) / sum)
     }
-    
     
 }
 
@@ -138,13 +137,13 @@ modelHandler.loadModel().then(() => {
         const canvasData = canvasDrawer.getResizedGrayscaleArray()
         const tensor = new onnx.Tensor(canvasData, 'float32', [1, 1, 28, 28])
         modelHandler.runInference(tensor).then((outputMap) => {
-            let probabilities = modelHandler.softmax(outputMap.values().next().value.data);
+            let probabilities = modelHandler.softmax(outputMap.values().next().value.data)
             probabilities.forEach((prob, index) => {
-                let bar = document.getElementById(`confidence-${index}`);
-                let label = document.getElementById(`label-${index}`);
+                let bar = document.getElementById(`confidence-${index}`)
+                let label = document.getElementById(`label-${index}`)
                 label.innerHTML = `${(prob*100).toFixed(2)}%`
-                bar.style.height = `${(prob * 80).toFixed(2)}%`;
-            });
+                bar.style.height = `${(prob * 80).toFixed(2)}%`
+            })
         })
     })
 }, 500)
