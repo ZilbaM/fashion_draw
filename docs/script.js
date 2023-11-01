@@ -5,6 +5,7 @@ class CanvasDrawer {
         this.convertButton = document.getElementById(convertButtonId)
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        console.log('fill')
         this.drawing = false
         this.mousePos = { x: 0, y: 0 }
         this.lastPos = this.mousePos
@@ -68,7 +69,9 @@ class CanvasDrawer {
         })
         document.getElementById('clear').addEventListener('click', () => {
             this.ctx.reset()
+            this.ctx.beginPath()
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.closePath()
 
         })
     }
