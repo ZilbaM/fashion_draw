@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion MNIST Classifier</title>
+</head>
+<body>
+    <canvas id="canvas" width="280" height="280" style="border:1px solid #000000;"></canvas>
+    <button id="clear">Clear canva</button>
+    <table id="inference-results">
+        <tr>
+            <th>Category</th>
+            <th>Confidence</th>
+        </tr>
+        <tr><td>T-shirt/top</td><td id="label-0">0%</td></tr>
+        <tr><td>Trouser</td><td id="label-1">0%</td></tr>
+        <tr><td>Pullover</td><td id="label-2">0%</td></tr>
+        <tr><td>Dress</td><td id="label-3">0%</td></tr>
+        <tr><td>Coat</td><td id="label-4">0%</td></tr>
+        <tr><td>Sandal</td><td id="label-5">0%</td></tr>
+        <tr><td>Shirt</td><td id="label-6">0%</td></tr>
+        <tr><td>Sneaker</td><td id="label-7">0%</td></tr>
+        <tr><td>Bag</td><td id="label-8">0%</td></tr>
+        <tr><td>Ankle boot</td><td id="label-9">0%</td></tr>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+    <script src="script.js"></script>
+    <style>
+        body {
+            background-image: url('./bg.svg');
+            background-repeat: repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            width: 280px;
+
+        }
+
+    </style>
+</body>
+</html>
