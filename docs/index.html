@@ -6,31 +6,127 @@
     <title>Fashion MNIST Classifier</title>
 </head>
 <body>
+    <h1>Draw me a cloth</h1>
     <canvas id="canvas" width="280" height="280" style="border:1px solid #000000;"></canvas>
     <button id="clear">Clear canva</button>
-    <table id="inference-results">
-        <tr>
-            <th>Category</th>
-            <th>Confidence</th>
-        </tr>
-        <tr><td>T-shirt/top</td><td id="label-0">0%</td></tr>
-        <tr><td>Trouser</td><td id="label-1">0%</td></tr>
-        <tr><td>Pullover</td><td id="label-2">0%</td></tr>
-        <tr><td>Dress</td><td id="label-3">0%</td></tr>
-        <tr><td>Coat</td><td id="label-4">0%</td></tr>
-        <tr><td>Sandal</td><td id="label-5">0%</td></tr>
-        <tr><td>Shirt</td><td id="label-6">0%</td></tr>
-        <tr><td>Sneaker</td><td id="label-7">0%</td></tr>
-        <tr><td>Bag</td><td id="label-8">0%</td></tr>
-        <tr><td>Ankle boot</td><td id="label-9">0%</td></tr>
-    </table>
+    <div class="probs">
+        <div class="category">
+            <span>T-shirt/top</span>
+            <span id="label-0">0%</span>
+            <div id="confidence-0" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Trouser</span>
+            <span id="label-1">0%</span>
+            <div id="confidence-1" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Pullover</span>
+            <span id="label-2">0%</span>
+            <div id="confidence-2" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Dress</span>
+            <span id="label-3">0%</span>
+            <div id="confidence-3" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Coat</span>
+            <span id="label-4">0%</span>
+            <div id="confidence-4" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Sandal</span>
+            <span id="label-5">0%</span>
+            <div id="confidence-5" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Shirt</span>
+            <span id="label-6">0%</span>
+            <div id="confidence-6" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Sneaker</span>
+            <span id="label-7">0%</span>
+            <div id="confidence-7" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Bag</span>
+            <span id="label-8">0%</span>
+            <div id="confidence-8" class="confidence-bar"></div>
+        </div>
+        <div class="category">
+            <span>Ankle boot</span>
+            <span id="label-9">0%</span>
+            <div id="confidence-9" class="confidence-bar"></div>
+        </div>
+    </div>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } 
+        html {
+            background: url('./bg.svg');
+        }
         body {
-            background-image: url('./bg.svg');
+            background-color: rgba(0, 0, 0, 0.5);
             background-repeat: repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100vh;
+            gap: 8px;
+        }
+        h1 {
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 2rem;
+            margin: 16px 0;
+        }
+        button {
+            border: 2px solid white;
+            color: white;
+            font-size: 1.25rem;
+            padding: 4px;
+            font-family:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all .4s;
+        }
+        button:hover {
+            background-color: white;
+            color: black
+        }
+        .probs {
+            height: 100%;
+            width: 100%;
+            display:flex;
+            gap: 16px;
+            justify-content: space-around;
+        }
+
+        .category {
+            height: 100%;
+            gap: 16px;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .confidence-bar {
+            height: 0%;
+            background-color: #4caf50;
+            width: 40px; /* Initial width */
+            transition: height 0.5s ease-in-out;
+        }
+
+        .category span {
+            color : white;
+            font-size: 1.25rem;
+            display: inline-block;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
     </style>

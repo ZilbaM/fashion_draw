@@ -138,10 +138,12 @@ modelHandler.loadModel().then(() => {
         const canvasData = canvasDrawer.getResizedGrayscaleArray()
         const tensor = new onnx.Tensor(canvasData, 'float32', [1, 1, 28, 28])
         modelHandler.runInference(tensor).then((outputMap) => {
-            let logits = outputMap.values().next().value.data;
-            let probabilities = modelHandler.softmax(logits);
+            let probabilities = modelHandler.softmax(outputMap.values().next().value.data);
             probabilities.forEach((prob, index) => {
-                document.getElementById(`label-${index}`).innerText = `${(prob * 100).toFixed(2)}%`;
+                let bar = document.getElementById(`confidence-${index}`);
+                let label = document.getElementById(`label-${index}`);
+                label.innerHTML = `${(prob*100).toFixed(2)}%`
+                bar.style.height = `${(prob * 80).toFixed(2)}%`;
             });
         })
     })
